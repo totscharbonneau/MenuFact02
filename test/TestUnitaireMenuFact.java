@@ -1,7 +1,9 @@
 import menufact.Client;
 import menufact.Menu;
 import menufact.facture.Facture;
+import menufact.facture.exceptions.FactureException;
 import menufact.plats.PlatAuMenu;
+import menufact.plats.PlatChoisi;
 import menufact.plats.PlatSante;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +38,11 @@ public class TestUnitaireMenuFact {
     @Test
     void TestPlatAuMenuToString(){
         assertEquals(p1.toString(),"menufact.plats.PlatAuMenu{code=0, description='PlatAuMenu0', prix=10.0}\n");
+    }
+    @Test
+    void addPlatToFacture() throws FactureException {
+        f1.ajoutePlat(new PlatChoisi(p1,1));
+        assertEquals(f1.sousTotal(),10);
     }
 
 }

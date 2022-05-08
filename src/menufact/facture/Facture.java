@@ -9,14 +9,14 @@ import java.util.Date;
 
 /**
  * Une facture du systeme Menufact
- * @author Domingo Palao Munoz
- * @version 1.0
+ * @author Thomas Charbonneau
+ * @version 2.0
  */
 public class Facture {
     private Date date;
     private String description;
     private FactureEtat etat;
-    private ArrayList<PlatChoisi> platchoisi = new ArrayList<PlatChoisi>();
+    public ArrayList<PlatChoisi> platchoisi = new ArrayList<PlatChoisi>();
     private int courant;
     private Client client;
 
@@ -75,14 +75,14 @@ public class Facture {
      */
     public void payer()
     {
-       etat = FactureEtat.PAYEE;
+       etat.payer();
     }
     /**
      * Permet de chager l'état de la facture à FERMEE
      */
     public void fermer()
     {
-       etat = FactureEtat.FERMEE;
+       etat.fermer();
     }
 
     /**
@@ -91,10 +91,7 @@ public class Facture {
      */
     public void ouvrir() throws FactureException
     {
-        if (etat == FactureEtat.PAYEE)
-            throw new FactureException("La facture ne peut pas être reouverte.");
-        else
-            etat = FactureEtat.OUVERTE;
+        etat.ouvrir();
     }
 
     /**
@@ -108,11 +105,19 @@ public class Facture {
 
     /**
      *
+     * set l'etat de la facture
+     *
+     */
+    public void setEtat(FactureEtat etat){
+        this.etat = etat;
+    }
+    /**
+     *
      * @param description la description de la Facture
      */
     public Facture(String description) {
         date = new Date();
-        etat = FactureEtat.OUVERTE;
+        etat = new OUVERTE(this);
         courant = -1;
         this.description = description;
     }
@@ -124,10 +129,7 @@ public class Facture {
      */
     public void ajoutePlat(PlatChoisi p) throws FactureException
     {
-        if (etat == FactureEtat.OUVERTE)
-            platchoisi.add(p);
-        else
-            throw new FactureException("On peut ajouter un plat seulement sur une facture OUVERTE.");
+        etat.ajoutePlat(p);
     }
 
     /**
