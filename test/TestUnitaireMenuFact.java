@@ -1,11 +1,8 @@
-import menufact.Client;
-import menufact.Menu;
-import menufact.facture.Facture;
-import menufact.facture.exceptions.FactureException;
-import menufact.plats.PlatAuMenu;
-import menufact.plats.PlatChoisi;
-import menufact.plats.PlatSante;
+import menufact.menu.Menu;
+import menufact.menu.MenuView;
+import menufact.menu.MenuController;
 import org.junit.jupiter.api.Test;
+
 
 import static  org.junit.jupiter.api.Assertions.*;
 public class TestUnitaireMenuFact {
@@ -41,6 +38,13 @@ public class TestUnitaireMenuFact {
         Menu m1 = Menu.getInstance("Menu 1");
         m1 = Menu.getInstance("Menu 2");
         assertEquals("Menu 1" ,m1.getDescription());
+    }
+    @Test
+    void testMenuMVC(){
+        Menu m1 = Menu.getInstance("Menu 1");
+        MenuView mv1 = MenuView.getInstance();
+        MenuController mc1 = MenuController.getInstance(m1,mv1);
+        assertEquals("Menu 1" ,mc1.getModelDescription());
     }
 
 
