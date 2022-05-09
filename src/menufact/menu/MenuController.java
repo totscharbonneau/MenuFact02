@@ -10,7 +10,10 @@ import java.util.ArrayList;
 public class MenuController {
     private Menu model;
     private MenuView view;
-
+    /**
+     *
+     * @return cree une instance du Controller en singleton
+     */
     private static MenuController instance;
 
     private MenuController(Menu model, MenuView view){

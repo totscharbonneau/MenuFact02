@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class MenuView {
     /**
      *
-     * @return description du contenu du menu
+     * @return cree une instance du View en singleton
      */
     private static MenuView instance;
     private MenuView(){}
@@ -17,7 +17,10 @@ public class MenuView {
         }
         return instance;
     }
-
+    /**
+     *
+     * @return description du contenu du menu
+     */
     public String printDetails(String description, int courant, ArrayList<PlatAuMenu> plat) {
         return "Menu{" +
                 "description='" + description +
