@@ -2,9 +2,10 @@ import menufact.Client;
 import menufact.Menu;
 import menufact.facture.Facture;
 import menufact.facture.exceptions.FactureException;
-import menufact.plats.PlatAuMenu;
-import menufact.plats.PlatChoisi;
-import menufact.plats.PlatNormal;
+import menufact.plats.*;
+//import menufact.plats.PlatChoisi;
+//import menufact.plats.PlatEnfant;
+//import menufact.plats.PlatFactory;
 //import menufact.plats.PlatSante;
 import org.junit.jupiter.api.Test;
 
@@ -45,21 +46,44 @@ public class TestUnitaireMenuFact {
     }
     @Test
     void CreatePlatNormal(){
-        PlatNormal p1 = new PlatNormal(1,"Plat Normal", 10);
+        PlatAuMenu p1 = PlatFactory.getPlatNormal(1,"Plat Normal",10);
         assertEquals("Plat Normal",p1.getDescription(), "Description pas bonne");
         assertEquals(1,p1.getCode(),"Code pas bon");
         assertEquals(10,p1.getPrix(),"Prix pas bon");
     }
     @Test
     void PlatNormaltoString(){
-        PlatNormal p1 = new PlatNormal(1,"Plat Normal", 10);
+        PlatAuMenu p1 = PlatFactory.getPlatNormal(1,"Plat Normal",10);
         assertEquals("menufact.plats.PlatAuMenu{" +
                 "code=" + 1 +
                 ", description='" + "Plat Normal" + '\'' +
                 ", prix=" + 10.0 +
                 "}\n",p1.toString(),"toString brokey");
     }
-
+    @Test
+    void setCodePlatNormal(){
+        PlatAuMenu p1 = PlatFactory.getPlatNormal(1,"Plat Normal",10);
+        p1.setCode(2);
+        assertEquals(2,p1.getCode());
+    }
+    @Test
+    void createPlatEnfant(){
+        PlatEnfant p1 = PlatFactory.getPlatEnfant(1,"Plat Enfant",5,0.5);
+        assertEquals("Plat Enfant",p1.getDescription(), "Description pas bonne");
+        assertEquals(1,p1.getCode(),"Code pas bon");
+        assertEquals(5,p1.getPrix(),"Prix pas bon");
+        assertEquals(0.5,p1.getProportion(),"Proportion pas bonne");
+    }
+    @Test
+    void createPlatSante(){
+        PlatSante p1 = PlatFactory.getPlatSante(1,"Plat Sante",15,0,0.3,0.6);
+        assertEquals("Plat Sante",p1.getDescription(), "Description pas bonne");
+        assertEquals(1,p1.getCode(),"Code pas bon");
+        assertEquals(15,p1.getPrix(),"Prix pas bon");
+        assertEquals(0.0,p1.getKcal(),"Kcal pas bon");
+        assertEquals(0.3,p1.getChol(),"Chol pas bon");
+        assertEquals(0.6,p1.getGras(),"Gras pas bon");
+    }
 
 
 //    @Test
