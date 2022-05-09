@@ -1,6 +1,6 @@
-package menufact;
+package menufact.menu;
 
-import menufact.exceptions.MenuException;
+import menufact.menu.exceptions.MenuException;
 import menufact.plats.PlatAuMenu;
 
 import java.util.ArrayList;
@@ -19,7 +19,6 @@ public class Menu {
 
     /**
      *
-     * @param description description du Menu
      * @return instance du Menu
      */
     public static Menu getInstance(String description) {
@@ -68,13 +67,4 @@ public class Menu {
             courant--;
     }
 
-
-    @Override
-    public String toString() {
-        return "menufact.Menu{" +
-                "description='" + description + '\'' +
-                ", courant=" + courant +
-                ", plat=" + "\n" + plat +
-                '}';
-    }
 }
