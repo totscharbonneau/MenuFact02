@@ -1,3 +1,4 @@
+import menufact.Chef;
 import menufact.Client;
 import menufact.Menu;
 import menufact.facture.Facture;
@@ -83,6 +84,13 @@ public class TestUnitaireMenuFact {
         assertEquals(0.0,p1.getKcal(),"Kcal pas bon");
         assertEquals(0.3,p1.getChol(),"Chol pas bon");
         assertEquals(0.6,p1.getGras(),"Gras pas bon");
+    }
+    @Test
+    void ObserveurChef(){
+        PlatSante p1 = PlatFactory.getPlatSante(1,"Plat Sante",15,0,0.3,0.6);
+        PlatChoisi pc1 = new PlatChoisi(p1,1);
+        Chef chef1 = Chef.getInstance();
+        assertEquals(1,chef1.getTaille());
     }
 
 
