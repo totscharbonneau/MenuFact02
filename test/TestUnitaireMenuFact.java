@@ -4,7 +4,8 @@ import menufact.facture.Facture;
 import menufact.facture.exceptions.FactureException;
 import menufact.plats.PlatAuMenu;
 import menufact.plats.PlatChoisi;
-import menufact.plats.PlatSante;
+import menufact.plats.PlatNormal;
+//import menufact.plats.PlatSante;
 import org.junit.jupiter.api.Test;
 
 import static  org.junit.jupiter.api.Assertions.*;
@@ -42,6 +43,23 @@ public class TestUnitaireMenuFact {
         m1 = Menu.getInstance("Menu 2");
         assertEquals("Menu 1" ,m1.getDescription());
     }
+    @Test
+    void CreatePlatNormal(){
+        PlatNormal p1 = new PlatNormal(1,"Plat Normal", 10);
+        assertEquals("Plat Normal",p1.getDescription(), "Description pas bonne");
+        assertEquals(1,p1.getCode(),"Code pas bon");
+        assertEquals(10,p1.getPrix(),"Prix pas bon");
+    }
+    @Test
+    void PlatNormaltoString(){
+        PlatNormal p1 = new PlatNormal(1,"Plat Normal", 10);
+        assertEquals("menufact.plats.PlatAuMenu{" +
+                "code=" + 1 +
+                ", description='" + "Plat Normal" + '\'' +
+                ", prix=" + 10.0 +
+                "}\n",p1.toString(),"toString brokey");
+    }
+
 
 
 //    @Test
