@@ -7,15 +7,37 @@ import java.util.ArrayList;
 
 public class Menu {
 
+    private static Menu instance;
     private String description;
     private int courant;
     private ArrayList<PlatAuMenu> plat = new ArrayList<PlatAuMenu>();
 
-    public Menu(String description) {
+
+    private Menu(String description) {
         this.description = description;
     }
 
-    void ajoute (PlatAuMenu p)
+    /**
+     *
+     * @param description description du Menu
+     * @return instance du Menu
+     */
+    public static Menu getInstance(String description) {
+        if(instance == null){
+            instance = new Menu(description);
+        }
+        return instance;
+    }
+
+    /**
+     *
+     * @return description du menu
+     */
+    public String getDescription(){
+        return description;
+    }
+
+    void ajoute(PlatAuMenu p)
     {
         plat.add(p);
     }
