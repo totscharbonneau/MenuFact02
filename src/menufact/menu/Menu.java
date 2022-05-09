@@ -10,6 +10,7 @@ public class Menu {
     private static Menu instance;
     private String description;
     private int courant;
+
     private ArrayList<PlatAuMenu> plat = new ArrayList<PlatAuMenu>();
 
 
@@ -36,7 +37,15 @@ public class Menu {
         return description;
     }
 
-    void ajoute(PlatAuMenu p)
+    public ArrayList<PlatAuMenu> getPlat() {
+        return plat;
+    }
+
+    public int getCourant() {
+        return courant;
+    }
+
+    public void ajoute(PlatAuMenu p)
     {
         plat.add(p);
     }
