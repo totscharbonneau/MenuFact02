@@ -45,4 +45,10 @@ public class IngredientClient {
     public void setQuantiteIntrinsic(double quantite) throws IngredientException {
         ingredientIntrinsic.setQuantite(quantite);
     }
+
+    public void retirerQuantiteRecette() throws IngredientException {
+        if(ingredientIntrinsic.getQuantite()>=quantiteRecette){
+            ingredientIntrinsic.setQuantite(ingredientIntrinsic.getQuantite()-quantiteRecette);
+        }
+    }
 }

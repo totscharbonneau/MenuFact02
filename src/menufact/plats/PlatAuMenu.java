@@ -2,6 +2,7 @@ package menufact.plats;
 
 import ingredients.Ingredient;
 import ingredients.IngredientClient;
+import ingredients.exceptions.IngredientException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,13 @@ public class PlatAuMenu {
     public void retirerIngredient(IngredientClient oldIngredient){
         if(ingredients.contains(oldIngredient)){
             ingredients.remove(oldIngredient);
+        }
+    }
+
+    public void retirerQuantiteRecette() throws IngredientException {
+        for(IngredientClient ingredient : ingredients)
+        {
+            ingredient.retirerQuantiteRecette();
         }
     }
 }

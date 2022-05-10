@@ -1,7 +1,9 @@
+import ingredients.exceptions.IngredientException;
 import menufact.menu.Menu;
 import menufact.menu.MenuView;
 import menufact.menu.MenuController;
 import ingredients.*;
+import menufact.plats.PlatAuMenu;
 import org.junit.jupiter.api.Test;
 
 
@@ -93,6 +95,60 @@ public class TestUnitaireMenuFact {
 
         assertNotEquals(patateSalade.getQuantiteRecette(),patateRagout.getQuantiteRecette());
         assertEquals(patateRagout.getIngredientIntrinsic(),patateSalade.getIngredientIntrinsic());
+    }
+
+    @Test
+    void test1Plat2Ingredient(){
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
+
+        Ingredient poivre = new Epice();
+        poivre.setDescription("du poivre");
+        poivre.setNom("poivre");
+
+        IngredientInventaire poivreInventaire = new IngredientInventaire(poivre, 0.5);
+
+        IngredientClient poivreRagout = new IngredientClient(poivreInventaire,0.1);
+
+        PlatAuMenu ragout = new PlatAuMenu(1,"ragout de patate",10);
+        ragout.ajoutIngredient(patateRagout);
+        ragout.ajoutIngredient(poivreRagout);
+
+        assertEquals(ragout.getIngredients().get(0),patateRagout);
+        assertEquals(ragout.getIngredients().get(1),poivreRagout);
+
+        ragout.retirerIngredient(patateRagout);
+
+        assertEquals(ragout.getIngredients().get(0),poivreRagout);
+    }
+
+    @Test
+    void test2Plats1Ingredient() throws IngredientException {
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
+
+        IngredientClient patateSalade = new IngredientClient(patateInventaire,4);
+
+        PlatAuMenu ragout = new PlatAuMenu(1,"ragout de patate",10);
+        ragout.ajoutIngredient(patateRagout);
+
+        PlatAuMenu salade = new PlatAuMenu(2,"salade de patate",8);
+        salade.ajoutIngredient(patateSalade);
+
+        ragout.retirerQuantiteRecette();
+
+        assertEquals(8,ragout.getIngredients().get(0).getIngredientIntrinsic().getQuantite());
+        assertEquals(8,salade.getIngredients().get(0).getIngredientIntrinsic().getQuantite());
     }
 
 //    @Test
