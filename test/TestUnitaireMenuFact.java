@@ -1,6 +1,7 @@
 import menufact.menu.Menu;
 import menufact.menu.MenuView;
 import menufact.menu.MenuController;
+import ingredients.*;
 import org.junit.jupiter.api.Test;
 
 
@@ -47,6 +48,52 @@ public class TestUnitaireMenuFact {
         assertEquals("Menu 1" ,mc1.getModelDescription());
     }
 
+    @Test
+    void testInventaireIngredient(){
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        assertEquals("des patates",patateInventaire.getIngredientDescription());
+        assertEquals("patate",patateInventaire.getIngredientNom());
+        assertEquals(TypeIngredient.FRUIT,patateInventaire.getIngredientTypeIngredient());
+        assertEquals(10,patateInventaire.getQuantite());
+    }
+
+    @Test
+    void testClientIngredient(){
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
+
+        assertEquals("des patates",patateRagout.getIngredientIntrinsicDescription());
+        assertEquals("patate",patateRagout.getIngredientIntrinsicNom());
+        assertEquals(TypeIngredient.FRUIT,patateRagout.getIngredientIntrinsicTypeIngredient());
+        assertEquals(10,patateRagout.getIngredientIntrinsicQuantite());
+        assertEquals(2,patateRagout.getQuantiteRecette());
+    }
+
+    @Test
+    void testDeuxClientIngredient(){
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
+
+        IngredientClient patateSalade = new IngredientClient(patateInventaire,4);
+
+        assertNotEquals(patateSalade.getQuantiteRecette(),patateRagout.getQuantiteRecette());
+        assertEquals(patateRagout.getIngredientIntrinsic(),patateSalade.getIngredientIntrinsic());
+    }
 
 //    @Test
 //    void TestPlatAuMenuToString(){
