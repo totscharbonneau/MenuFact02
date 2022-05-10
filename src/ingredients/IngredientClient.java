@@ -24,17 +24,7 @@ public class IngredientClient {
     public IngredientInventaire getIngredientIntrinsic() {
         return ingredientIntrinsic;
     }
-    public String getIngredientIntrinsicNom() {
-        return ingredientIntrinsic.getIngredientNom();
-    }
-
-    public String getIngredientIntrinsicDescription() {
-        return ingredientIntrinsic.getIngredientDescription();
-    }
-
-    public TypeIngredient getIngredientIntrinsicTypeIngredient() {
-        return ingredientIntrinsic.getIngredientTypeIngredient();
-    }
+    
 
     public double getIngredientIntrinsicQuantite(){return ingredientIntrinsic.getQuantite();}
 
