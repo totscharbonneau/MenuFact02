@@ -1,3 +1,7 @@
+import menufact.menu.Menu;
+import menufact.menu.MenuView;
+import menufact.menu.MenuController;
+import ingredients.*;
 import menufact.menu.*;
 import menufact.Chef;
 import menufact.Client;
@@ -53,13 +57,65 @@ public class TestUnitaireMenuFact {
     }
 
     @Test
-    void CreatePlatNormal() {
-        PlatAuMenu p1 = PlatFactory.getPlatNormal(1, "Plat Normal", 10);
-        assertEquals("Plat Normal", p1.getDescription(), "Description pas bonne");
-        assertEquals(1, p1.getCode(), "Code pas bon");
-        assertEquals(10, p1.getPrix(), "Prix pas bon");
+    void testInventaireIngredient(){
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        assertEquals("des patates",patateInventaire.getIngredientDescription());
+        assertEquals("patate",patateInventaire.getIngredientNom());
+        assertEquals(TypeIngredient.FRUIT,patateInventaire.getIngredientTypeIngredient());
+        assertEquals(10,patateInventaire.getQuantite());
     }
 
+    @Test
+    void testClientIngredient(){
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
+
+        assertEquals("des patates",patateRagout.getIngredientIntrinsicDescription());
+        assertEquals("patate",patateRagout.getIngredientIntrinsicNom());
+        assertEquals(TypeIngredient.FRUIT,patateRagout.getIngredientIntrinsicTypeIngredient());
+        assertEquals(10,patateRagout.getIngredientIntrinsicQuantite());
+        assertEquals(2,patateRagout.getQuantiteRecette());
+    }
+
+    @Test
+    void testDeuxClientIngredient(){
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
+
+        IngredientClient patateSalade = new IngredientClient(patateInventaire,4);
+
+        assertNotEquals(patateSalade.getQuantiteRecette(),patateRagout.getQuantiteRecette());
+        assertEquals(patateRagout.getIngredientIntrinsic(),patateSalade.getIngredientIntrinsic());
+    }
+
+//    @Test
+//    void TestPlatAuMenuToString(){
+//        assertEquals(p1.toString(),"menufact.plats.PlatAuMenu{code=0, description='PlatAuMenu0', prix=10.0}\n");
+//    }
+//    @Test
+//    void addPlatToFacture() throws FactureException {
+//        f1.ajoutePlat(new PlatChoisi(p1,1));
+//        assertEquals(f1.sousTotal(),10);
+//    }
+//    @Test
+//    void CreatePlatNormalAuMenu(){
+//
+//    }
     @Test
     void PlatNormaltoString() {
         PlatAuMenu p1 = PlatFactory.getPlatNormal(1, "Plat Normal", 10);
