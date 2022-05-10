@@ -12,6 +12,10 @@ public class IngredientInventaire implements IngredientInterface{
         this.quantite = quantite;
     }
 
+    public IngredientInventaire() {
+        this.ingredient = null;
+        this.quantite = 0;
+    }
     public double getQuantite() {
         return quantite;
     }

@@ -4,6 +4,8 @@ import menufact.facture.FactureEtat;
 import menufact.facture.exceptions.FactureException;
 import menufact.plats.PlatChoisi;
 
+import java.util.ArrayList;
+
 public class OUVERTE implements FactureEtat {
 
     private Facture facture;
@@ -14,10 +16,14 @@ public class OUVERTE implements FactureEtat {
 
     @Override
     public void payer(){
+        for (PlatChoisi plat: facture.platchoisi) {
+            plat.close();
+        }
     }
 
     @Override
     public void fermer(){
+
         facture.setEtat(new FERMEE(facture));
     }
 

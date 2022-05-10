@@ -1,10 +1,12 @@
 //package menufact;
 //
 //import menufact.facture.exceptions.FactureException;
-//import menufact.exceptions.MenuException;
 //import menufact.facture.Facture;
+//import menufact.menu.*;
+//import menufact.menu.exceptions.MenuException;
 //import menufact.plats.PlatAuMenu;
 //import menufact.plats.PlatChoisi;
+//import menufact.plats.PlatFactory;
 //import menufact.plats.PlatSante;
 //
 //public class TestMenuFact02 {
@@ -12,28 +14,29 @@
 //    public static void main(String[] args) {
 //        boolean trace = true;
 //
-////        TestMenuFact02 t = new TestMenuFact02();
-////
-////        PlatAuMenu p1 = new PlatAuMenu(0,"PlatAuMenu0",10);
-////        PlatAuMenu p2 = new PlatAuMenu(1,"PlatAuMenu1",20);
-////        PlatAuMenu p3 = new PlatAuMenu(2,"PlatAuMenu2",30);
-////        PlatAuMenu p4 = new PlatAuMenu(3,"PlatAuMenu3",40);
-////        PlatAuMenu p5 = new PlatAuMenu(4,"PlatAuMenu4",50);
-////
-////
-////        PlatSante ps1 = new PlatSante(10,"PlatSante0",10,11,11,11);
-////        PlatSante ps2 = new PlatSante(11,"PlatSante1",20,11,11,11);
-////        PlatSante ps3 = new PlatSante(12,"PlatSante2",30,11,11,11);
-////        PlatSante ps4 = new PlatSante(13,"PlatSante3",40,11,11,11);
-////        PlatSante ps5 = new PlatSante(14,"PlatSante4",50,11,11,11);
-////
-////
-////        Menu m1 = new Menu("menufact.Menu 1");
-////        Menu m2 = new Menu("menufact.Menu 2");
-////
-////        Facture f1 = new Facture("Ma facture");
-////
-////        Client c1 = new Client(1,"Mr Client","1234567890");
+//        TestMenuFact02 t = new TestMenuFact02();
+//
+//        PlatAuMenu p1 = PlatFactory.getPlatNormal(0,"PlatAuMenu0",10);
+//
+//        PlatAuMenu p2 = PlatFactory.getPlatNormal(1,"PlatAuMenu1",20);
+//        PlatAuMenu p3 = PlatFactory.getPlatNormal(2,"PlatAuMenu2",30);
+//        PlatAuMenu p4 = PlatFactory.getPlatNormal(3,"PlatAuMenu3",40);
+//        PlatAuMenu p5 = PlatFactory.getPlatNormal(4,"PlatAuMenu4",50);
+//
+//
+//        PlatSante ps1 = PlatFactory.getPlatSante(10,"PlatSante0",10,11,11,11);
+//        PlatSante ps2 = PlatFactory.getPlatSante(11,"PlatSante1",20,11,11,11);
+//        PlatSante ps3 = PlatFactory.getPlatSante(12,"PlatSante2",30,11,11,11);
+//        PlatSante ps4 = PlatFactory.getPlatSante(13,"PlatSante3",40,11,11,11);
+//        PlatSante ps5 = PlatFactory.getPlatSante(14,"PlatSante4",50,11,11,11);
+//
+//
+//        Menu m1 = Menu.getInstance("menufact.Menu 1");
+//        Menu m2 = Menu.getInstance("menufact.Menu 2");
+//
+//        Facture f1 = new Facture("Ma facture");
+//
+//        Client c1 = new Client(1,"Mr Client","1234567890");
 //
 //
 //        t.test1_AffichePlatsAuMenu(trace, p1,p2,p3,p4,p5);

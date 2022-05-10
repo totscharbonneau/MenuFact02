@@ -129,7 +129,10 @@ public class Facture {
      */
     public void ajoutePlat(PlatChoisi p) throws FactureException
     {
-        etat.ajoutePlat(p);
+        if(p.getEtatString() != "ImpossibleDeServir"){
+            etat.ajoutePlat(p);
+        }
+
     }
 
     /**
