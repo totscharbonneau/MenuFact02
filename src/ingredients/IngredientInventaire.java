@@ -1,25 +1,38 @@
 package ingredients;
 
 import ingredients.exceptions.IngredientException;
+import ingredients.Ingredient;
 
-public class IngredientInventaire {
-    private IngredientInventaire ingredientInventaire;
-    private int quantite;
+public class IngredientInventaire implements IngredientInterface{
+    private Ingredient ingredient;
+    private double quantite;
 
-    public IngredientInventaire(IngredientInventaire ingredientInventaire, int quantite) {
-        this.ingredientInventaire = ingredientInventaire;
+    public IngredientInventaire(Ingredient ingredient, double quantite) {
+        this.ingredient = ingredient;
         this.quantite = quantite;
     }
 
-    public int getQuantite() {
+    public double getQuantite() {
         return quantite;
     }
 
-    public void setQuantite(int quantite) throws IngredientException{
+    public void setQuantite(double quantite) throws IngredientException{
 
         if (quantite < 0)
             throw new IngredientException("Il n'est pas possible d'avoir une quantité negative");
         else
             this.quantite = quantite;
+    }
+
+    public String getIngredientNom() {
+        return ingredient.getNom();
+    }
+
+    public String getIngredientDescription() {
+        return ingredient.getDescription();
+    }
+
+    public TypeIngredient getIngredientTypeIngredient() {
+        return ingredient.getTypeIngredient();
     }
 }
