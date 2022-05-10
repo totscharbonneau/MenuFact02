@@ -24,7 +24,7 @@ public class IngredientClient {
     public IngredientInventaire getIngredientIntrinsic() {
         return ingredientIntrinsic;
     }
-    
+
 
     public double getIngredientIntrinsicQuantite(){return ingredientIntrinsic.getQuantite();}
 
