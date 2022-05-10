@@ -1,3 +1,4 @@
+import ingredients.exceptions.IngredientException;
 import menufact.menu.Menu;
 import menufact.menu.MenuView;
 import menufact.menu.MenuController;
@@ -13,27 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import static  org.junit.jupiter.api.Assertions.*;
 public class TestUnitaireMenuFact {
-
-//    PlatAuMenu p1 = new PlatAuMenu(0,"PlatAuMenu0",10);
-//    PlatAuMenu p2 = new PlatAuMenu(1,"PlatAuMenu1",20);
-//    PlatAuMenu p3 = new PlatAuMenu(2,"PlatAuMenu2",30);
-//    PlatAuMenu p4 = new PlatAuMenu(3,"PlatAuMenu3",40);
-//    PlatAuMenu p5 = new PlatAuMenu(4,"PlatAuMenu4",50);
-//
-//
-//    PlatSante ps1 = new PlatSante(10,"PlatSante0",10,11,11,11);
-//    PlatSante ps2 = new PlatSante(11,"PlatSante1",20,11,11,11);
-//    PlatSante ps3 = new PlatSante(12,"PlatSante2",30,11,11,11);
-//    PlatSante ps4 = new PlatSante(13,"PlatSante3",40,11,11,11);
-//    PlatSante ps5 = new PlatSante(14,"PlatSante4",50,11,11,11);
-//
-//
-//    Menu m1 = new Menu("menufact.Menu 1");
-//    Menu m2 = new Menu("menufact.Menu 2");
-//
-//    Facture f1 = new Facture("Ma facture");
-//
-//    Client c1 = new Client(1,"Mr Client","1234567890");
 
     @Test
     void CreateMenu() {
@@ -103,19 +83,6 @@ public class TestUnitaireMenuFact {
         assertEquals(patateRagout.getIngredientIntrinsic(),patateSalade.getIngredientIntrinsic());
     }
 
-//    @Test
-//    void TestPlatAuMenuToString(){
-//        assertEquals(p1.toString(),"menufact.plats.PlatAuMenu{code=0, description='PlatAuMenu0', prix=10.0}\n");
-//    }
-//    @Test
-//    void addPlatToFacture() throws FactureException {
-//        f1.ajoutePlat(new PlatChoisi(p1,1));
-//        assertEquals(f1.sousTotal(),10);
-//    }
-//    @Test
-//    void CreatePlatNormalAuMenu(){
-//
-//    }
     @Test
     void PlatNormaltoString() {
         PlatAuMenu p1 = PlatFactory.getPlatNormal(1, "Plat Normal", 10);
@@ -155,9 +122,129 @@ public class TestUnitaireMenuFact {
 
     @Test
     void ObserveurChef() {
+        Chef chef1 = Chef.getInstance();
+        var previoussize = chef1.getTaille();
         PlatSante p1 = PlatFactory.getPlatSante(1, "Plat Sante", 15, 0, 0.3, 0.6);
         PlatChoisi pc1 = new PlatChoisi(p1, 1);
-        Chef chef1 = Chef.getInstance();
-        assertEquals(1, chef1.getTaille());
+
+        assertNotEquals(previoussize, chef1.getTaille());
     }
+
+    @Test
+    void CreationFactueWithDescription(){
+        Facture f1 = new Facture("facture 1");
+        assertNotNull(f1.getEtat());
+    }
+
+//    @Test
+//    void FactureGenerer(){
+//        Facture f1 = new Facture("facture 1");
+//        Client c1 = new Client(1,"bob","12345678");
+//        f1.associerClient(c1);
+//        assertEquals("bruh",f1.genererFacture());
+//    }
+    @Test
+    void PlatChoisiCreation(){
+        PlatAuMenu p1 = PlatFactory.getPlatNormal(1, "Plat Normal", 10);
+        PlatChoisi pc1 = new PlatChoisi(p1,2);
+        assertEquals("menufact.plats.PlatChoisi{" +
+                "quantite=" + 2 +
+                ", plat=" + p1 +
+                '}', pc1.toString());
+    }
+    @Test
+    void QuantiteIngredientAssez(){
+        PlatAuMenu p1 = PlatFactory.getPlatNormal(1, "Plat Normal", 10);
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
+
+        p1.ajoutIngredient(patateRagout);
+
+        PlatChoisi pc1 = new PlatChoisi(p1,1);
+
+        assertEquals("Commande",pc1.getEtatString());
+    }
+    @Test
+    void QuantiteIngredientPasAssez(){
+        PlatAuMenu p1 = PlatFactory.getPlatNormal(1, "Plat Normal", 10);
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        IngredientClient patateRagout = new IngredientClient(patateInventaire,6);
+
+        p1.ajoutIngredient(patateRagout);
+
+        PlatChoisi pc1 = new PlatChoisi(p1,2);
+
+        assertEquals("ImpossibleDeServir",pc1.getEtatString());
+    }
+
+    @Test
+    void changementEtatPlatChoisiChef(){
+        PlatAuMenu p1 = PlatFactory.getPlatNormal(1, "Plat Normal", 10);
+        PlatChoisi pc1 = new PlatChoisi(p1,2);
+        Chef chef1 = Chef.getInstance();
+        chef1.startCooking(pc1);
+        assertEquals("EnPreparation",pc1.getEtatString());
+        chef1.startCooking(pc1);
+        assertEquals("EnPreparation",pc1.getEtatString(),"EtatEnPreparation wrong changement");
+    }
+    @Test
+    void finishCookingState() throws IngredientException {
+        PlatAuMenu p1 = PlatFactory.getPlatNormal(1, "Plat Normal", 10);
+        PlatChoisi pc1 = new PlatChoisi(p1,2);
+        Chef chef1 = Chef.getInstance();
+        chef1.startCooking(pc1);
+        chef1.finishCooking(pc1);
+        assertEquals("Termine",pc1.getEtatString());
+    }
+    @Test
+    void finishCookingChangeIngredientIntresic() throws IngredientException{
+        PlatAuMenu p1 = PlatFactory.getPlatNormal(1, "Plat Normal", 10);
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+
+        IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
+
+        p1.ajoutIngredient(patateRagout);
+
+        PlatChoisi pc1 = new PlatChoisi(p1,1);
+        Chef chef1 = Chef.getInstance();
+        chef1.startCooking(pc1);
+        chef1.finishCooking(pc1);
+
+        assertEquals(8,patateInventaire.getQuantite());
+    }
+
+    @Test
+    void finishCookingNoChangeIngredientIntresic() throws IngredientException{
+        PlatAuMenu p1 = PlatFactory.getPlatNormal(1, "Plat Normal", 10);
+        Ingredient patate = new Fruit();
+        patate.setDescription("des patates");
+        patate.setNom("patate");
+        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+        IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
+        p1.ajoutIngredient(patateRagout);
+        PlatChoisi pc1 = new PlatChoisi(p1,7);
+        Chef chef1 = Chef.getInstance();
+        chef1.startCooking(pc1);
+        chef1.finishCooking(pc1);
+        assertEquals(10,patateInventaire.getQuantite());
+    }
+    @Test
+    void StatePlatChoisiServi(){
+
+    }
+
 }

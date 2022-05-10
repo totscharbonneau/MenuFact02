@@ -1,22 +1,20 @@
 package menufact.plats.EtatPossible;
 
-import menufact.Chef;
 import menufact.plats.PlatChoisi;
 import menufact.plats.PlatChoisiEtat;
 
-public class ImpossibleDeServir implements PlatChoisiEtat {
-    PlatChoisi plat;
-
-    public ImpossibleDeServir(PlatChoisi plat){
+public class Termine implements PlatChoisiEtat {
+    private PlatChoisi plat;
+    public Termine(PlatChoisi plat){
         this.plat = plat;
     }
-
     @Override
     public String toString(){
-        return "ImpossibleDeServir";
+        return "Termine";
     }
     @Override
     public void startCooking(){
+        plat.setEtat(new EnPreparation(plat));
     }
     @Override
     public void finishCooking(){
@@ -24,12 +22,10 @@ public class ImpossibleDeServir implements PlatChoisiEtat {
     }
     @Override
     public void servir(){
-
+        plat.setEtat(new Servi(plat));
     }
     @Override
     public void close(){
-        plat.setEtat(new Termine(plat));
-        var chef1 = Chef.getInstance();
-        chef1.removePlat(plat);
+
     }
 }

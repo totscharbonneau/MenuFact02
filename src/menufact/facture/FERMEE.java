@@ -12,6 +12,9 @@ public class FERMEE implements FactureEtat{
 
     @Override
     public void payer(){
+        for (PlatChoisi plat: facture.platchoisi) {
+            plat.close();
+        }
         facture.setEtat(new PAYEE(facture));
     }
 
