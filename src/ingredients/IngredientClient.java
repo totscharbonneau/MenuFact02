@@ -9,6 +9,8 @@ public class IngredientClient {
 
     private IngredientInventaire ingredientIntrinsic;
 
+
+
     /**
      *
      * @param ingredientIntrinsic IngredientClient contient un IngredentInventaire, la partie intrinseque
@@ -19,7 +21,9 @@ public class IngredientClient {
         this.ingredientIntrinsic = ingredientIntrinsic;
         this.quantiteRecette = quantiteRecette;
     }
-
+    public IngredientInventaire getIngredientIntrinsic() {
+        return ingredientIntrinsic;
+    }
     public String getIngredientIntrinsicNom() {
         return ingredientIntrinsic.getIngredientNom();
     }
@@ -40,5 +44,11 @@ public class IngredientClient {
 
     public void setQuantiteIntrinsic(double quantite) throws IngredientException {
         ingredientIntrinsic.setQuantite(quantite);
+    }
+
+    public void retirerQuantiteRecette() throws IngredientException {
+        if(ingredientIntrinsic.getQuantite()>=quantiteRecette){
+            ingredientIntrinsic.setQuantite(ingredientIntrinsic.getQuantite()-quantiteRecette);
+        }
     }
 }
