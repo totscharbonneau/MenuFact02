@@ -1,6 +1,6 @@
-package menufact;
+package menufact.menu;
 
-import menufact.exceptions.MenuException;
+import menufact.menu.exceptions.MenuException;
 import menufact.plats.PlatAuMenu;
 
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ public class Menu {
     private static Menu instance;
     private String description;
     private int courant;
+
     private ArrayList<PlatAuMenu> plat = new ArrayList<PlatAuMenu>();
 
 
@@ -19,7 +20,6 @@ public class Menu {
 
     /**
      *
-     * @param description description du Menu
      * @return instance du Menu
      */
     public static Menu getInstance(String description) {
@@ -37,7 +37,15 @@ public class Menu {
         return description;
     }
 
-    void ajoute(PlatAuMenu p)
+    public ArrayList<PlatAuMenu> getPlat() {
+        return plat;
+    }
+
+    public int getCourant() {
+        return courant;
+    }
+
+    public void ajoute(PlatAuMenu p)
     {
         plat.add(p);
     }
@@ -68,13 +76,4 @@ public class Menu {
             courant--;
     }
 
-
-    @Override
-    public String toString() {
-        return "menufact.Menu{" +
-                "description='" + description + '\'' +
-                ", courant=" + courant +
-                ", plat=" + "\n" + plat +
-                '}';
-    }
 }
