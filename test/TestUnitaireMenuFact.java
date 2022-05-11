@@ -1,4 +1,5 @@
 import ingredients.exceptions.IngredientException;
+import inventaire.Inventaire;
 import menufact.menu.Menu;
 import menufact.menu.MenuView;
 import menufact.menu.MenuController;
@@ -138,11 +139,14 @@ public class TestUnitaireMenuFact {
 
     @Test
     void test1Plat5Ingredient(){
+        Inventaire inventaire = new Inventaire();
+
         Ingredient patate = new Legume();
         patate.setDescription("des patates");
         patate.setNom("patate");
 
         IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+        inventaire.ajouter(patateInventaire);
 
         IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
 
@@ -151,6 +155,7 @@ public class TestUnitaireMenuFact {
         poivre.setNom("poivre");
 
         IngredientInventaire poivreInventaire = new IngredientInventaire(poivre, 0.5);
+        inventaire.ajouter(poivreInventaire);
 
         IngredientClient poivreRagout = new IngredientClient(poivreInventaire,0.1);
 
@@ -159,6 +164,7 @@ public class TestUnitaireMenuFact {
         lait.setNom("lait");
 
         IngredientInventaire laitInventaire = new IngredientInventaire(lait, 20);
+        inventaire.ajouter(laitInventaire);
 
         IngredientClient laitRagout = new IngredientClient(laitInventaire,1.2);
 
@@ -167,6 +173,7 @@ public class TestUnitaireMenuFact {
         boeuf.setNom("boeuf");
 
         IngredientInventaire boeufInventaire = new IngredientInventaire(boeuf, 12);
+        inventaire.ajouter(boeufInventaire);
 
         IngredientClient boeufRagout = new IngredientClient(boeufInventaire,3);
 
@@ -175,6 +182,7 @@ public class TestUnitaireMenuFact {
         tomate.setNom("tomates");
 
         IngredientInventaire tomateInventaire = new IngredientInventaire(tomate, 10);
+        inventaire.ajouter(tomateInventaire);
 
         IngredientClient tomateRagout = new IngredientClient(tomateInventaire,1);
 
