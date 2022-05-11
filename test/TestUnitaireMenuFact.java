@@ -60,9 +60,9 @@ public class TestUnitaireMenuFact {
 
         IngredientClient patateRagout = new IngredientClient(patateInventaire,2);
 
-        assertEquals("des patates",patateRagout.getIngredientIntrinsicDescription());
-        assertEquals("patate",patateRagout.getIngredientIntrinsicNom());
-        assertEquals(TypeIngredient.FRUIT,patateRagout.getIngredientIntrinsicTypeIngredient());
+        assertEquals("des patates",patateRagout.getIngredientIntrinsic().getIngredientDescription());
+        assertEquals("patate",patateRagout.getIngredientIntrinsic().getIngredientNom());
+        assertEquals(TypeIngredient.FRUIT,patateRagout.getIngredientIntrinsic().getIngredientTypeIngredient());
         assertEquals(10,patateRagout.getIngredientIntrinsicQuantite());
         assertEquals(2,patateRagout.getQuantiteRecette());
     }
@@ -137,8 +137,8 @@ public class TestUnitaireMenuFact {
     }
 
     @Test
-    void test1Plat2Ingredient(){
-        Ingredient patate = new Fruit();
+    void test1Plat5Ingredient(){
+        Ingredient patate = new Legume();
         patate.setDescription("des patates");
         patate.setNom("patate");
 
@@ -154,9 +154,36 @@ public class TestUnitaireMenuFact {
 
         IngredientClient poivreRagout = new IngredientClient(poivreInventaire,0.1);
 
+        Ingredient lait = new Laitier();
+        lait.setDescription("du lait");
+        lait.setNom("lait");
+
+        IngredientInventaire laitInventaire = new IngredientInventaire(lait, 20);
+
+        IngredientClient laitRagout = new IngredientClient(laitInventaire,1.2);
+
+        Ingredient boeuf = new Viande();
+        boeuf.setDescription("du boeuf");
+        boeuf.setNom("boeuf");
+
+        IngredientInventaire boeufInventaire = new IngredientInventaire(boeuf, 12);
+
+        IngredientClient boeufRagout = new IngredientClient(boeufInventaire,3);
+
+        Ingredient tomate = new Fruit();
+        tomate.setDescription("des tomates");
+        tomate.setNom("tomates");
+
+        IngredientInventaire tomateInventaire = new IngredientInventaire(tomate, 10);
+
+        IngredientClient tomateRagout = new IngredientClient(tomateInventaire,1);
+
         PlatAuMenu ragout = new PlatAuMenu(1,"ragout de patate",10);
         ragout.ajoutIngredient(patateRagout);
         ragout.ajoutIngredient(poivreRagout);
+        ragout.ajoutIngredient(boeufRagout);
+        ragout.ajoutIngredient(laitRagout);
+        ragout.ajoutIngredient(tomateRagout);
 
         assertEquals(ragout.getIngredients().get(0),patateRagout);
         assertEquals(ragout.getIngredients().get(1),poivreRagout);
@@ -189,6 +216,16 @@ public class TestUnitaireMenuFact {
         assertEquals(8,ragout.getIngredients().get(0).getIngredientIntrinsic().getQuantite());
         assertEquals(8,salade.getIngredients().get(0).getIngredientIntrinsic().getQuantite());
     }
+
+//    @Test
+//    void testExcepltionIngredient() throws IngredientException {
+//        Ingredient patate = new Fruit();
+//        patate.setDescription("des patates");
+//        patate.setNom("patate");
+//
+//        IngredientInventaire patateInventaire = new IngredientInventaire(patate, 10);
+//        assertThrows(IngredientException.class,patateInventaire.setQuantite(-1));
+//    }
 
 //    @Test
 //    void FactureGenerer(){
